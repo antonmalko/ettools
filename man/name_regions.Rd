@@ -4,8 +4,8 @@
 \alias{name_regions}
 \title{Assign meaningful names to regions in eye-tracking data}
 \usage{
-name_regions(dat, reg.names, region.col = region, type.col,
-  missing.prefix = "Reg_")
+name_regions(dat, reg.names, region.col = region, reg.names.col = reg.name,
+  type.col, missing.prefix = "Reg_")
 }
 \arguments{
 \item{dat}{data.frame to add region names to}
@@ -16,6 +16,9 @@ between the two scenarios}
 
 \item{region.col}{unquoted name of the column with original regions identifiers,
 which have to be assigned new names}
+
+\item{reg.names.col}{unquoted name of the coumn with region names which will
+be added to the data; "reg.name" by default}
 
 \item{type.col}{unquoted name of the column specifying stimuli types, if
 it is necessary to assign different names to the same region identifiers

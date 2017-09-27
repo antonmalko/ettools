@@ -57,7 +57,7 @@ check_for_duplicates <- function(x, x.name = "x"){
   #' @param x.name name for x (useful since this function is called from a wrapper,
   #'        check_schema_for_duplicates, which may want to let know which
   #'        schema has duplicates in it)
-  #' @returns Throws an error if the tested vector contains duplicates
+  #' @return Throws an error if the tested vector contains duplicates
   if (anyDuplicated(x)){
     stop(paste0("Duplicates found in ", x.name,
                 ": ", x[duplicated(x)]))
@@ -94,7 +94,7 @@ check_for_delims <- function(x, delim, x.description, delim.description){
   #'        contains the character used as Y [see next param]"
   #' @param delim.description Descriprion of delimiter being checked. Will be
   #'        substituted instead of Y in the above error message.
-  #' @returns Nothing
+  #' @return Nothing
 
   if  (!is.character(x)){
     stop("The first argument must be a character!")

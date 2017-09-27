@@ -6,14 +6,14 @@
 contain duplicates, throws an error if they do. A wrapper around
 \code{check_for_duplicates}.}
 \usage{
-check_schema_for_duplicates(schema, check.values.for.dups)
+check_schema_for_duplicates(schema, check.values.for.dups = FALSE)
 }
 \arguments{
 \item{schema}{List with a schema to be checked for duplicates}
 
-\item{check.values.for.dups}{logical. If TRUE, only names are checked
-(usuful for checking values schemas - values can be duplicater);
-if FALSE, names and values of the list elements are checked
+\item{check.values.for.dups}{logical. If FALSE, only names are checked
+(usuful for checking values schemas - values can be duplicated);
+if TRUE, names and values of the list elements are checked
 (useful for checking tagging schemas - tags should be unique)}
 }
 \description{

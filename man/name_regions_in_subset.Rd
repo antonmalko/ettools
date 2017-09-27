@@ -4,7 +4,8 @@
 \alias{name_regions_in_subset}
 \title{Assign meaningful region names to a subset of data with a single stimuli type}
 \usage{
-name_regions_in_subset(dat, reg.names, region.col, missing.prefix = "Reg_")
+name_regions_in_subset(dat, reg.names, region.col, reg.names.col = reg.name,
+  missing.prefix = "Reg_")
 }
 \arguments{
 \item{dat}{data.frame to add region names to}
@@ -15,6 +16,9 @@ region identifiers}
 
 \item{region.col}{unquoted name of the column containing current region
 identifiers}
+
+\item{reg.names.col}{unquoted name of the coumn with region names which will
+be added to the data; "reg.name" by default}
 
 \item{missing.prefix}{what to prefix to region identifiers for which the user didn't
 specify names explicitly. Defaults to "Reg_", i.e. if region identifiers

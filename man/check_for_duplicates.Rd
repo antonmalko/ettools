@@ -4,10 +4,17 @@
 \alias{check_for_duplicates}
 \title{A validation helper which throws an error if a vector contains duplicates}
 \usage{
-check_for_duplicates(x)
+check_for_duplicates(x, x.name = "x")
 }
 \arguments{
 \item{x}{vector to be checked for duplicates}
+
+\item{x.name}{name for x (useful since this function is called from a wrapper,
+check_schema_for_duplicates, which may want to let know which
+schema has duplicates in it)}
+}
+\value{
+Throws an error if the tested vector contains duplicates
 }
 \description{
 A validation helper which throws an error if a vector contains duplicates

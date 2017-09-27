@@ -251,3 +251,39 @@ inflate_region_names <- function(reg.names, regions,
   return(dummy.regions)
 }
 
+get.subj.info <- function(dat){
+  #' A function to extract basic info about subjects from an eye-tracking data
+  #' returned by Ilia's scripts.
+  #' @param dat data frame containing eytracking data
+  #' @return list with two components: `n.subj` - number of subjects in the data;
+  #'  `subj.missing` - a vector with IDs of missing subjects; NA if no subjects
+  #'  are missing. The missing subjects are simply numbers missing from a continuous
+  #'  vector of numbers from 1 to highest subject ID. E.g. if we have subjects
+  #'  1,2,3,5, the subject 4 will be reported missing.
+
+  if (!is.data.frame(dat)){
+    stop("`data` argument must be of type data.frame!")
+  }
+
+  if (!"subj" %in% colanmes(dat)){
+    stop("The data doesn't seem to contain `subj` column with subj IDs!")
+  }
+
+  if (!is.numeric(dat$subj)){
+    stop("The subjects IDs in `subj` column should be numeric!")
+  }
+
+  subj <- unique(dat$subj)[order(unique(dat$subj))]
+  # N of subjects
+  n.subj <- length(subj)
+  # are there any subjects which are missing?
+  subj.max <- 1:max(subj) # highest subject index, e.g. 4 for [1,2,4]
+  subj.missing <- subj.max[which(!subj.max %in% subj)] # i.e. it would be 3, if subj = [1,2,4]
+  if (length(subj.missing) == 0) subj.missing <- NA
+
+  return(list(n.subj = n.subj,
+              subj.missing = subj.missing))
+}
+
+
+

@@ -19,6 +19,9 @@ contains the character used as Y \link{see next param}"}
 \item{delim.description}{Descriprion of delimiter being checked. Will be
 substituted instead of Y in the above error message.}
 }
+\value{
+Nothing
+}
 \description{
 Helper function throwing an error if a string contains characters used
 as delimiters in a schema.
