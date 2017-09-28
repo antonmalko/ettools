@@ -13,7 +13,7 @@ plot_cells_count(dat, by, cells.count, rois, mois, fill = count,
 \item{by}{quosure indicating which column we are aggregating along. Usually
 it is the subject or the item column.}
 
-\item{cells.count}{data.frame with cells count data produced by \code{count_cells}.
+\item{cells.count}{data.frame with cells count data produced by \code{\link{count_cells}}.
 The function expects that the data.frame has column "cell", containing
 the names of data subsets for which counts were performed (e.g
 region+measure combination) and column "count", containing the counts
@@ -28,11 +28,11 @@ cells have to be counted}
 }
 \value{
 heatmap plot of the cell counts (expanded compared to the plot
-returned by \code{plot_cells_heatmap} - with added zero counts and ROIs
+returned by \code{\link{plot_cells_heatmap}} - with added zero counts and ROIs
 delimitation)
 }
 \description{
-A wrapper around \code{\link{plot_cells_heatmap()}} which is aware of regions
+A wrapper around \code{\link{plot_cells_heatmap}} which is aware of regions
 and measures of interest. Because of that it a) adds 0 counts to region + measure
 combinations which lacked the relevant kind of value (e.g. extreme or NAs);
 b) visually delimits ROIs in the plot for visual convenience.

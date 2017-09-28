@@ -2,7 +2,7 @@
 % Please edit documentation in R/missing_values.R
 \name{count_extremes}
 \alias{count_extremes}
-\title{Convenience wrapper for count_cells() for counting NAs.}
+\title{Convenience wrapper for \code{\link{count_cells}} for counting NAs.}
 \usage{
 count_extremes(dat, by, rois, mois, value.col, region.col, measure.col,
   max.cutoff, min.cutoff = 0)
@@ -11,6 +11,9 @@ count_extremes(dat, by, rois, mois, value.col, region.col, measure.col,
 \item{dat}{data.frame containing data to process}
 
 \item{by}{quosure with column name for the main grouping variable. See "Details"}
+
+\item{rois, mois}{vectors of identifiers for regions and measures, in which
+cells have to be counted}
 
 \item{value.col}{quosure with column name containing the NAs (potentially along
 with non-NA values. Typically it will be the column containing the reaction
@@ -27,7 +30,7 @@ above this threshold will be considered "extreme" and counted}
 }
 \value{
 data.frame with 4 columns. The first 3 are analogous to
-\code{\link{count_cells()}}
+\code{\link{count_cells}}
 (i.e. they contain the main grouping variable identifier (typically subject or item),
 the combination of region and measure identifying subsets of data,
 and extreme values counts), and the fourth one, called "direction", indicates

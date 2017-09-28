@@ -91,7 +91,7 @@ check_for_delims <- function(x, delim, x.description, delim.description){
   #' @param delim character. Delimiter character
   #' @param x.description Description of the string being checked. Will be
   #'        substituted instead of X to the error message: "The following X
-  #'        contains the character used as Y [see next param]"
+  #'        contains the character used as Y (see next param)"
   #' @param delim.description Descriprion of delimiter being checked. Will be
   #'        substituted instead of Y in the above error message.
   #' @return Nothing
@@ -176,7 +176,7 @@ validate_proj_name <- function(proj.name,
   #' A validation function for project name checking that it
   #' does not contain characters which will be used as delimiters
   #' in the file name
-  #' @param naming.schema vector. Naming schema to be checked
+  #' @param proj.name project name to be validated
   #' @param tag.delim character. The character which will be used as a delimiter
   #'        between component tags and values
   #' @param component.delim character. The character which will be used as a delimiter
@@ -279,8 +279,9 @@ save_named_data_file <- function(..., proj.name,
   #'        analysis. E.g. list(markup = "like-parker", analysis = "variant4")
   #' @param tag.delim character. Delimiter between tags and values.
   #' @param component.delim character. Delimiter between filename components
-  #' @param output.folder character
+  #' @param output.dir character path to the output folder
   #' @return Full path to the created file
+  #' @export
 
   file_name <- make_filename(proj.name,
                              tags, values,
@@ -300,7 +301,7 @@ save_named_table <- function(x, proj.name,
                              file.extension = ".txt", ...){
 
   #' A function to save tabular files named according to a naming schema.
-  #' @param ... the names of the objects to be saved (as symbols or character strings).
+  #' @param x the names of the object to be saved (as symbols or character strings).
   #'        (as in base::save)
   #' @param proj.name character. Project name. Will be used as the first substring
   #'        in the file name
@@ -312,13 +313,14 @@ save_named_table <- function(x, proj.name,
   #'        analysis. E.g. list(markup = "like-parker", analysis = "variant4")
   #' @param tag.delim character. Delimiter between tags and values.
   #' @param component.delim character. Delimiter between filename components
-  #' @param output.folder character
+  #' @param output.dir character
   #' @param type one of "table", "csv", "csv2" - depending on that, the function
   #'        called differs: utils::write.table, utils::write.csv or utils::write.csv2
   #' @param file.extension character. Extenstion of the output file. Only used
   #'        if type = "table", otherwise it is set to ".csv"
   #' @param ... other params to be passed to write.table function
   #' @return Full path to the created file
+  #' @export
 
   file_name <- make_filename(proj.name,
                              tags, values,
@@ -329,9 +331,9 @@ save_named_table <- function(x, proj.name,
   function.name <- paste0("write.", type)
 
   switch(type,
-         table = write.table(x = x, file = paste0(file_name_and_path, file.extension), ...),
-         csv = write.csv(x = x, file = paste0(file_name_and_path, ".csv"), ...),
-         csv2 = write.csv2(x = x, file = paste0(file_name_and_path, ".csv"), ...))
+         table = utils::write.table(x = x, file = paste0(file_name_and_path, file.extension), ...),
+         csv = utils::write.csv(x = x, file = paste0(file_name_and_path, ".csv"), ...),
+         csv2 = utils::write.csv2(x = x, file = paste0(file_name_and_path, ".csv"), ...))
 
   return(paste0(file_name_and_path, file.extension))
 }

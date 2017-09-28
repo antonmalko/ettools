@@ -199,7 +199,7 @@ count_cells <- function(dat, by, ..., cast.formula,
 
   res <-  dat %>%
     dplyr::group_by(rlang::UQS(grouping_vars), rlang::UQ(by)) %>%
-    dplyr::summarize(res = n()) %>%
+    dplyr::summarize(res =n()) %>%
     reshape2::dcast(cast.formula, value.var = "res", fill = 0) %>%
     reshape2::melt(id.vars = id.var, variable.name = "cell", value.name = value.name)
 
@@ -218,6 +218,8 @@ count_NAs <- function(dat, by,
   #'
   #' @param dat data.frame containing data to process
   #' @param by quosure. column name for the main grouping variable. See "Details"
+  #' @param rois,mois vectors of identifiers for regions and measures, in which
+  #' cells have to be counted
   #' @param value.col quosure. column name containing the NAs (potentially along
   #' with non-NA values. Typically it will be the column containing the reaction
   #' times or something alike).
@@ -246,7 +248,7 @@ count_NAs <- function(dat, by,
                              measure.col = measure.col)
 
   filtered.dat <- dat %>%
-    dplyr::filter(!complete.cases(rlang::UQ(value.col)))
+    dplyr::filter(!stats::complete.cases(rlang::UQ(value.col)))
 
   if (nrow(filtered.dat) == 0){
     warning(paste0("There are no NAs in column `", rlang::quo_name(value.col), "`"))
@@ -262,7 +264,7 @@ count_NAs <- function(dat, by,
                        rlang::UQ(region.col),
                        rlang::UQ(measure.col),
                        id.var = rlang::quo_name(by),
-                       cast.formula = formula(paste(rlang::quo_name(by),"~" ,rlang::quo_name(region.col),
+                       cast.formula = stats::formula(paste(rlang::quo_name(by),"~" ,rlang::quo_name(region.col),
                                                     " + ", rlang::quo_name(measure.col))))
   }
 
@@ -277,13 +279,15 @@ count_extremes <- function(dat, by,
                            rois, mois,
                            value.col, region.col, measure.col,
                            max.cutoff, min.cutoff = 0){
-  #' Convenience wrapper for count_cells() for counting NAs.
+  #' Convenience wrapper for \code{\link{count_cells}} for counting NAs.
   #'
   #' Count the number of NAs in the data briken down by region, measure and
   #' some third factor, usually subject or item.
   #'
   #' @param dat data.frame containing data to process
   #' @param by quosure with column name for the main grouping variable. See "Details"
+  #' @param rois,mois vectors of identifiers for regions and measures, in which
+  #' cells have to be counted
   #' @param value.col quosure with column name containing the NAs (potentially along
   #' with non-NA values. Typically it will be the column containing the reaction
   #' times or something alike).
@@ -299,7 +303,7 @@ count_extremes <- function(dat, by,
   #' displayed on the y axis in the summary plots.
   #'
   #' @return data.frame with 4 columns. The first 3 are analogous to
-  #' \code{\link{count_cells()}}
+  #' \code{\link{count_cells}}
   #' (i.e. they contain the main grouping variable identifier (typically subject or item),
   #' the combination of region and measure identifying subsets of data,
   #' and extreme values counts), and the fourth one, called "direction", indicates
@@ -344,7 +348,7 @@ count_extremes <- function(dat, by,
                                  rlang::UQ(region.col),
                                  rlang::UQ(measure.col),
                                  id.var = rlang::quo_name(by),
-                                 cast.formula = formula(paste(rlang::quo_name(by),"~",
+                                 cast.formula = stats::formula(paste(rlang::quo_name(by),"~",
                                                               rlang::quo_name(region.col), " + ",
                                                               rlang::quo_name(measure.col))))
   }
@@ -360,7 +364,7 @@ count_extremes <- function(dat, by,
                                 rlang::UQ(region.col),
                                 rlang::UQ(measure.col),
                                 id.var = rlang::quo_name(by),
-                                cast.formula = formula(paste(rlang::quo_name(by),"~",
+                                cast.formula = stats::formula(paste(rlang::quo_name(by),"~",
                                                              rlang::quo_name(region.col), " + ",
                                                              rlang::quo_name(measure.col))))
   }
@@ -388,10 +392,10 @@ plot_cells_heatmap <- function(dat, by, fill, limits = NULL,
   #' Plot heatmap of cell counts
   #'
   #' A generic function to plot heatmaps of cell counts. Shouldn't be used directly
-  #' to plot counts produced by \code{count_cells()} and related functions, since
+  #' to plot counts produced by \code{\link{count_cells}} and related functions, since
   #' those counts may lack the data from certain subsets of the data, if those
   #' subsets lack the relevant kind of values (e.g. NAs or extreme values).
-  #' Instead, \code{\link{plot_cell_counts}}, or convenience wrappers around it
+  #' Instead, \code{\link{plot_cells_count}}, or convenience wrappers around it
   #' should be called, since they take care of subsets with 0 observations
   #' by artificially adding these 0s back to the counts.
   #'
@@ -442,7 +446,7 @@ plot_cells_count <- function(dat, by,
 
   #' Plot heatmaps of cell counts
   #'
-  #' A wrapper around \code{\link{plot_cells_heatmap()}} which is aware of regions
+  #' A wrapper around \code{\link{plot_cells_heatmap}} which is aware of regions
   #' and measures of interest. Because of that it a) adds 0 counts to region + measure
   #' combinations which lacked the relevant kind of value (e.g. extreme or NAs);
   #' b) visually delimits ROIs in the plot for visual convenience.
@@ -450,7 +454,7 @@ plot_cells_count <- function(dat, by,
   #' @param dat data.frame containing information about \code{by} column
   #' @param by quosure indicating which column we are aggregating along. Usually
   #' it is the subject or the item column.
-  #' @param cells.count data.frame with cells count data produced by \code{count_cells}.
+  #' @param cells.count data.frame with cells count data produced by \code{\link{count_cells}}.
   #'        The function expects that the data.frame has column "cell", containing
   #'        the names of data subsets for which counts were performed (e.g
   #'        region+measure combination) and column "count", containing the counts
@@ -461,7 +465,7 @@ plot_cells_count <- function(dat, by,
   #' @param plot.name character
   #'
   #' @return heatmap plot of the cell counts (expanded compared to the plot
-  #' returned by \code{plot_cells_heatmap} - with added zero counts and ROIs
+  #' returned by \code{\link{plot_cells_heatmap}} - with added zero counts and ROIs
   #' delimitation)
   #' @export
 
@@ -579,10 +583,10 @@ report_extremes_count <- function(dat, by = subj,
   #' or something similar)
   #' @param region.col unquoted name of the column containing region ids
   #' @param measure.col unquoted name of the column containing measure ids
-  #' @param fill unquoted name of the column with cell counts
   #' @param max.cutoff numeric value, indicating the upper threshold; any values
   #' above this threshold will be considered "extreme" and counted
   #' @param min.cutoff numeric value, indicating the lower threshold. Defaults to 0
+  #' @param plot.name Name of the heatmap plot with extreme values counts
   #'
   #' @return list with 3 components:
   #' * \code{counts} - data.frame with counts data
@@ -646,7 +650,7 @@ report_extremes_count <- function(dat, by = subj,
     ggplot2::ggplot() +
     ggplot2::geom_point(ggplot2::aes_string(y = rlang::quo_name(value.col),
                                             x = rlang::quo_name(measure.col)))+
-    ggplot2::facet_wrap(formula(paste("~", rlang::quo_name(region.col))))
+    ggplot2::facet_wrap(stats::formula(paste("~", rlang::quo_name(region.col))))
 
   # plot numerical values below the min cutoff
   values.plots$low <- dat %>%
@@ -655,7 +659,7 @@ report_extremes_count <- function(dat, by = subj,
     ggplot2::ggplot() +
     ggplot2::geom_point(ggplot2::aes_string(y = rlang::quo_name(value.col),
                                             x = rlang::quo_name(measure.col)))+
-    ggplot2::facet_wrap(formula(paste("~", rlang::quo_name(region.col))))
+    ggplot2::facet_wrap(stats::formula(paste("~", rlang::quo_name(region.col))))
 
   return(list(counts = cells.count,
               count.plots = count.plots,

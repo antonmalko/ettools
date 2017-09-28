@@ -9,6 +9,9 @@ save_named_table(x, proj.name, tags, values, tag.delim = ".",
   file.extension = ".txt", ...)
 }
 \arguments{
+\item{x}{the names of the object to be saved (as symbols or character strings).
+(as in base::save)}
+
 \item{proj.name}{character. Project name. Will be used as the first substring
 in the file name}
 
@@ -24,16 +27,13 @@ analysis. E.g. list(markup = "like-parker", analysis = "variant4")}
 
 \item{component.delim}{character. Delimiter between filename components}
 
+\item{output.dir}{character}
+
 \item{type}{one of "table", "csv", "csv2" - depending on that, the function
 called differs: utils::write.table, utils::write.csv or utils::write.csv2}
 
 \item{file.extension}{character. Extenstion of the output file. Only used
 if type = "table", otherwise it is set to ".csv"}
-
-\item{...}{the names of the objects to be saved (as symbols or character strings).
-(as in base::save)}
-
-\item{output.folder}{character}
 
 \item{...}{other params to be passed to write.table function}
 }

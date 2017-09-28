@@ -14,7 +14,7 @@ check_for_delims(x, delim, x.description, delim.description)
 
 \item{x.description}{Description of the string being checked. Will be
 substituted instead of X to the error message: "The following X
-contains the character used as Y \link{see next param}"}
+contains the character used as Y (see next param)"}
 
 \item{delim.description}{Descriprion of delimiter being checked. Will be
 substituted instead of Y in the above error message.}

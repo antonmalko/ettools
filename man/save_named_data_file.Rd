@@ -26,7 +26,7 @@ analysis. E.g. list(markup = "like-parker", analysis = "variant4")}
 
 \item{component.delim}{character. Delimiter between filename components}
 
-\item{output.folder}{character}
+\item{output.dir}{character path to the output folder}
 }
 \value{
 Full path to the created file

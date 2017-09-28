@@ -29,10 +29,10 @@ heatmap plot of the cell counts
 }
 \description{
 A generic function to plot heatmaps of cell counts. Shouldn't be used directly
-to plot counts produced by \code{count_cells()} and related functions, since
+to plot counts produced by \code{\link{count_cells}} and related functions, since
 those counts may lack the data from certain subsets of the data, if those
 subsets lack the relevant kind of values (e.g. NAs or extreme values).
-Instead, \code{\link{plot_cell_counts}}, or convenience wrappers around it
+Instead, \code{\link{plot_cells_count}}, or convenience wrappers around it
 should be called, since they take care of subsets with 0 observations
 by artificially adding these 0s back to the counts.
 }

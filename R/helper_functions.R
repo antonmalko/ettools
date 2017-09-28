@@ -132,7 +132,7 @@ name_regions <- function(dat, reg.names,
 
   if (is.list(reg.names)){
 
-    stim_types_in_data <- unique(dat[[quo_name(type.col)]])
+    stim_types_in_data <- unique(dat[[rlang::quo_name(type.col)]])
 
     if (!all(names(reg.names) %in% stim_types_in_data)){
       warning(paste0("Some stimuli types specified in reg.names argument are missing ",
@@ -209,10 +209,10 @@ name_regions_in_subset <- function(dat, reg.names,
   reg.names.col <- rlang::enquo(reg.names.col)
 
   reg.names <- inflate_region_names(reg.names = reg.names,
-                                     regions = dat[[quo_name(region.col)]],
+                                     regions = dat[[rlang::quo_name(region.col)]],
                                      missing.prefix = missing.prefix)
 
-  dat[quo_name(reg.names.col)] <- names(reg.names[dat[[quo_name(region.col)]]])
+  dat[rlang::quo_name(reg.names.col)] <- names(reg.names[dat[[rlang::quo_name(region.col)]]])
 
   return(dat)
 
@@ -265,7 +265,7 @@ get.subj.info <- function(dat){
     stop("`data` argument must be of type data.frame!")
   }
 
-  if (!"subj" %in% colanmes(dat)){
+  if (!"subj" %in% colnames(dat)){
     stop("The data doesn't seem to contain `subj` column with subj IDs!")
   }
 
@@ -284,6 +284,3 @@ get.subj.info <- function(dat){
   return(list(n.subj = n.subj,
               subj.missing = subj.missing))
 }
-
-
-

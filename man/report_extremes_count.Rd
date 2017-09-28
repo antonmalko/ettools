@@ -30,7 +30,7 @@ above this threshold will be considered "extreme" and counted}
 
 \item{min.cutoff}{numeric value, indicating the lower threshold. Defaults to 0}
 
-\item{fill}{unquoted name of the column with cell counts}
+\item{plot.name}{Name of the heatmap plot with extreme values counts}
 }
 \value{
 list with 3 components:

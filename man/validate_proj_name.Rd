@@ -9,13 +9,13 @@ in the file name}
 validate_proj_name(proj.name, tag.delim, component.delim)
 }
 \arguments{
+\item{proj.name}{project name to be validated}
+
 \item{tag.delim}{character. The character which will be used as a delimiter
 between component tags and values}
 
 \item{component.delim}{character. The character which will be used as a delimiter
 between components tags}
-
-\item{naming.schema}{vector. Naming schema to be checked}
 }
 \value{
 Nothing. Throws an error if the naming project name contains
