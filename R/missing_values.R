@@ -239,11 +239,11 @@ count_NAs <- function(dat, by,
   #' @importFrom dplyr %>%
 
   if (missing(rois)){
-    rois <- unique(dat[[rlang::UQ(region.col)]])
+    rois <- unique(dat[[rlang::quo_name(region.col)]])
   }
 
   if (missing(mois)){
-    rois <- unique(dat[[rlang::UQ(measure.col)]])
+    rois <- unique(dat[[rlang::quo_name(measure.col)]])
   }
 
 
@@ -325,11 +325,11 @@ count_extremes <- function(dat, by,
   #' @importFrom dplyr %>%
 
   if (missing(rois)){
-    rois <- unique(dat[[rlang::UQ(region.col)]])
+    rois <- unique(dat[[rlang::quo_name(region.col)]])
   }
 
   if (missing(mois)){
-    rois <- unique(dat[[rlang::UQ(measure.col)]])
+    rois <- unique(dat[[rlang::quo_name(measure.col)]])
   }
 
   check_columns_existence(dat = dat,
@@ -540,7 +540,8 @@ report_NAs_count <- function(dat, by = subj,
   #' @param by unquoted column name for the main grouping variable. See "Details"
   #' @param rois,mois vectors of region and measures identifiers, for which counts
   #' should be produced. The type of entries in the vector should be the same as in
-  #' \code{region.col} and \code{measure.col} respectively.
+  #' \code{region.col} and \code{measure.col} respectively. Any of these can be left
+  #' unsepcified, in this case, all regions and/or measure form the data will be used.
   #' @param value.col unquoted name of the column containing NAs which should
   #' be counted (typically it would be the column containing reaction times
   #' or something similar)
@@ -563,6 +564,14 @@ report_NAs_count <- function(dat, by = subj,
   region.col <- rlang::enquo(region.col)
   measure.col <- rlang::enquo(measure.col)
   by <- rlang::enquo(by)
+
+  if (missing(rois)){
+    rois <- unique(dat[[rlang::quo_name(region.col)]])
+  }
+
+  if (missing(mois)){
+    rois <- unique(dat[[rlang::quo_name(measure.col)]])
+  }
 
   cells.count <- dat %>%
     dplyr::ungroup() %>%
@@ -596,7 +605,10 @@ report_extremes_count <- function(dat, by = subj,
   #' @param by quosure indicating which column we are aggregating along. Usually
   #' it is the subject or the item column.
   #' @param rois,mois vectors of identifiers for regions and measures, in which
-  #' cells have to be counted
+  #' cells have to be counted. The type of entries in the vector should be the same as in
+  #' \code{region.col} and \code{measure.col} respectively.
+  #' Any of these can be left unsepcified, in this case, all regions and/or measure
+  #' form the data will be used.
   #' @param value.col unquoted name of the column containing NAs which should
   #' be counted (typically it would be the column containing reaction times
   #' or something similar)
@@ -624,6 +636,14 @@ report_extremes_count <- function(dat, by = subj,
   region.col <- rlang::enquo(region.col)
   measure.col <- rlang::enquo(measure.col)
   by <- rlang::enquo(by)
+
+  if (missing(rois)){
+    rois <- unique(dat[[rlang::quo_nam(region.col)]])
+  }
+
+  if (missing(mois)){
+    rois <- unique(dat[[rlang::quo_name(measure.col)]])
+  }
 
   # count extreme values
   cells.count <-  dat %>%

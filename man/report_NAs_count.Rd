@@ -15,7 +15,8 @@ report_NAs_count(dat, by = subj, rois, mois, value.col = value,
 
 \item{rois, mois}{vectors of region and measures identifiers, for which counts
 should be produced. The type of entries in the vector should be the same as in
-\code{region.col} and \code{measure.col} respectively.}
+\code{region.col} and \code{measure.col} respectively. Any of these can be left
+unsepcified, in this case, all regions and/or measure form the data will be used.}
 
 \item{value.col}{unquoted name of the column containing NAs which should
 be counted (typically it would be the column containing reaction times

@@ -15,7 +15,10 @@ report_extremes_count(dat, by = subj, rois, mois, value.col = value,
 it is the subject or the item column.}
 
 \item{rois, mois}{vectors of identifiers for regions and measures, in which
-cells have to be counted}
+cells have to be counted. The type of entries in the vector should be the same as in
+\code{region.col} and \code{measure.col} respectively.
+Any of these can be left unsepcified, in this case, all regions and/or measure
+form the data will be used.}
 
 \item{value.col}{unquoted name of the column containing NAs which should
 be counted (typically it would be the column containing reaction times
