@@ -251,7 +251,7 @@ inflate_region_names <- function(reg.names, regions,
   return(dummy.regions)
 }
 
-get.subj.info <- function(dat){
+get_subj_info <- function(dat){
   #' A function to extract basic info about subjects from an eye-tracking data
   #' returned by Ilia's scripts.
   #' @param dat data frame containing eytracking data
@@ -260,6 +260,7 @@ get.subj.info <- function(dat){
   #'  are missing. The missing subjects are simply numbers missing from a continuous
   #'  vector of numbers from 1 to highest subject ID. E.g. if we have subjects
   #'  1,2,3,5, the subject 4 will be reported missing.
+  #'  @export
 
   if (!is.data.frame(dat)){
     stop("`data` argument must be of type data.frame!")

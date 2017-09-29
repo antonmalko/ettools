@@ -254,6 +254,7 @@ make_filename <- function(proj.name,
   #'        between components tags
   #' @return string. Filename, starting with project name
   #'         E.g. project1_mk.parker-like_an.variant4
+  #' @export
 
   filename_postfix <- make_filename_postfix(tags, values, tag.delim, component.delim)
   validate_proj_name(proj.name, tag.delim, component.delim)

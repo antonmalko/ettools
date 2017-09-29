@@ -2,6 +2,7 @@
 
 export(count_NAs)
 export(count_extremes)
+export(make_filename)
 export(name_regions)
 export(normalize_axes_labels)
 export(plot_cells_count)
