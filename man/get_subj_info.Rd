@@ -16,7 +16,6 @@ list with two components: \code{n.subj} - number of subjects in the data;
 are missing. The missing subjects are simply numbers missing from a continuous
 vector of numbers from 1 to highest subject ID. E.g. if we have subjects
 1,2,3,5, the subject 4 will be reported missing.
-@export
 }
 \description{
 A function to extract basic info about subjects from an eye-tracking data

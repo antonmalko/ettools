@@ -2,6 +2,8 @@
 
 export(count_NAs)
 export(count_extremes)
+export(get_quest_acc)
+export(get_subj_info)
 export(make_filename)
 export(name_regions)
 export(normalize_axes_labels)

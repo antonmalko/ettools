@@ -260,7 +260,7 @@ get_subj_info <- function(dat){
   #'  are missing. The missing subjects are simply numbers missing from a continuous
   #'  vector of numbers from 1 to highest subject ID. E.g. if we have subjects
   #'  1,2,3,5, the subject 4 will be reported missing.
-  #'  @export
+  #' @export
 
   if (!is.data.frame(dat)){
     stop("`data` argument must be of type data.frame!")
@@ -284,4 +284,29 @@ get_subj_info <- function(dat){
 
   return(list(n.subj = n.subj,
               subj.missing = subj.missing))
+}
+
+get_quest_acc <- function(dat, subj.col = subj, correct.col = is.correct){
+
+  #' Function to summarize question response accuracy
+  #' @param dat data containing subject identifiers and information about
+  #'  question answering accuracy. The data has to contain just one region
+  #'  and one eye-tracking measure in case of eye-tracking data.
+  #' @param subj.col unquoted name of the column containing subject identifiers
+  #' @param correct.col unquoted name of the column containing indicator of whether
+  #'   the question was answered correctly
+  #' @return a dataframe with 4 columns: subject number, total number of questions
+  #' (will be different if you removed some trials), number of correctly answered
+  #' questions, proportion of correct answers.
+  #' @export
+
+  subj.col <- rlang::enquo(subj.col)
+  correct.col <- rlang::enquo(correct.col)
+
+  res <- dat %>%
+    dplyr::group_by(rlang::UQ(subj.col)) %>%
+    dplyr::summarize(n.quest = length(which(!is.na(rlang::UQ(correct.col)))),
+               n.correct = sum(rlang::UQ(correct.col), na.rm = TRUE),
+               prop.correct = mean(rlang::UQ(correct.col), na.rm = TRUE))
+  return(res)
 }
