@@ -235,9 +235,10 @@ make_filename_postfix <- function(tags, values,
 }
 
 make_filename <- function(proj.name,
-                           tags, values,
-                           tag.delim = ".",
-                           component.delim = "_"){
+                          tags, values,
+                          tag.delim = ".",
+                          component.delim = "_",
+                          data.type){
 
   #' A function to create a filename based on tagging and value schemas.
   #'
@@ -252,6 +253,10 @@ make_filename <- function(proj.name,
   #'        between component tags and values
   #' @param component.delim character. The character which will be used as a delimiter
   #'        between components tags
+  #' @param data.type optional string specifying type of the data stored in the file.
+  #'        it will be added after the project name but before the tags. E.g., if
+  #'        \code{data.type = "data"}, and the tags and values are as in the
+  #'        examples above, the name could be project1_data_mk.parker-like_an.variant4
   #' @return string. Filename, starting with project name
   #'         E.g. project1_mk.parker-like_an.variant4
   #' @export
@@ -259,11 +264,18 @@ make_filename <- function(proj.name,
   filename_postfix <- make_filename_postfix(tags, values, tag.delim, component.delim)
   validate_proj_name(proj.name, tag.delim, component.delim)
 
+  if(!missing(data.type)){
+    validate_proj_name(proj.name, tag.delim, component.delim)
+    proj.name <- paste0(proj.name, component.delim, data.type)
+  }
+
+
   return(paste0(proj.name, filename_postfix))
 }
 
 save_named_data_file <- function(..., proj.name,
                                  tags, values,
+                                 data.type,
                                  tag.delim = ".",  component.delim = "_",
                                  output.dir = "."){
 
@@ -278,15 +290,21 @@ save_named_data_file <- function(..., proj.name,
   #' @param values list. List with a "values schema": lsit elements contain
   #'        values for the components of the name associated with a specific
   #'        analysis. E.g. list(markup = "like-parker", analysis = "variant4")
+  #' @param data.type optional string specifying type of the data stored in the file.
+  #'        it will be added after the project name but before the tags. E.g., if
+  #'        \code{data.type = "data"}, and the tags and values are as in the
+  #'        examples above, the name could be project1_data_mk.parker-like_an.variant4
   #' @param tag.delim character. Delimiter between tags and values.
   #' @param component.delim character. Delimiter between filename components
   #' @param output.dir character path to the output folder
   #' @return Full path to the created file
   #' @export
 
-  file_name <- make_filename(proj.name,
-                             tags, values,
-                             tag.delim, component.delim)
+  file_name <- make_filename(proj.name = proj.name,
+                             tags = tags, values = values,
+                             tag.delim = tag.delim,
+                             component.delim = component.delim,
+                             data.type = data.type)
   save(..., file = file.path(output.dir,
                              paste0(file_name, ".RData")))
   return(file.path(output.dir,
@@ -296,6 +314,7 @@ save_named_data_file <- function(..., proj.name,
 
 save_named_table <- function(x, proj.name,
                              tags, values,
+                             data.type,
                              tag.delim = ".",  component.delim = "_",
                              output.dir = dirs$data.csv,
                              type = "csv",
@@ -312,6 +331,10 @@ save_named_table <- function(x, proj.name,
   #' @param values list. List with a "values schema": lsit elements contain
   #'        values for the components of the name associated with a specific
   #'        analysis. E.g. list(markup = "like-parker", analysis = "variant4")
+  #' @param data.type optional string specifying type of the data stored in the file.
+  #'        it will be added after the project name but before the tags. E.g., if
+  #'        \code{data.type = "data"}, and the tags and values are as in the
+  #'        examples above, the name could be project1_data_mk.parker-like_an.variant4
   #' @param tag.delim character. Delimiter between tags and values.
   #' @param component.delim character. Delimiter between filename components
   #' @param output.dir character
@@ -323,9 +346,11 @@ save_named_table <- function(x, proj.name,
   #' @return Full path to the created file
   #' @export
 
-  file_name <- make_filename(proj.name,
-                             tags, values,
-                             tag.delim, component.delim)
+  file_name <- make_filename(proj.name = proj.name,
+                             tags = tags, values = values,
+                             tag.delim = tag.delim,
+                             component.delim = component.delim,
+                             data.type = data.type)
 
   file_name_and_path <- file.path(output.dir, file_name)
 

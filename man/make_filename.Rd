@@ -5,7 +5,7 @@
 \title{A function to create a filename based on tagging and value schemas.}
 \usage{
 make_filename(proj.name, tags, values, tag.delim = ".",
-  component.delim = "_")
+  component.delim = "_", data.type)
 }
 \arguments{
 \item{proj.name}{character. Project name; the filename will start with it}
@@ -23,6 +23,11 @@ between component tags and values}
 
 \item{component.delim}{character. The character which will be used as a delimiter
 between components tags}
+
+\item{data.type}{optional string specifying type of the data stored in the file.
+it will be added after the project name but before the tags. E.g., if
+\code{data.type = "data"}, and the tags and values are as in the
+examples above, the name could be project1_data_mk.parker-like_an.variant4}
 }
 \value{
 string. Filename, starting with project name

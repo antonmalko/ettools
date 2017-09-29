@@ -4,7 +4,7 @@
 \alias{save_named_table}
 \title{A function to save tabular files named according to a naming schema.}
 \usage{
-save_named_table(x, proj.name, tags, values, tag.delim = ".",
+save_named_table(x, proj.name, tags, values, data.type, tag.delim = ".",
   component.delim = "_", output.dir = dirs$data.csv, type = "csv",
   file.extension = ".txt", ...)
 }
@@ -22,6 +22,11 @@ analysis = "an").}
 \item{values}{list. List with a "values schema": lsit elements contain
 values for the components of the name associated with a specific
 analysis. E.g. list(markup = "like-parker", analysis = "variant4")}
+
+\item{data.type}{optional string specifying type of the data stored in the file.
+it will be added after the project name but before the tags. E.g., if
+\code{data.type = "data"}, and the tags and values are as in the
+examples above, the name could be project1_data_mk.parker-like_an.variant4}
 
 \item{tag.delim}{character. Delimiter between tags and values.}
 
