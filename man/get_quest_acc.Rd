@@ -4,7 +4,7 @@
 \alias{get_quest_acc}
 \title{Function to summarize question response accuracy}
 \usage{
-get_quest_acc(dat, subj.col = "subj", correct.col = "is.correct")
+get_quest_acc(dat, subj.col = subj, correct.col = is.correct)
 }
 \arguments{
 \item{dat}{data containing subject identifiers and information about

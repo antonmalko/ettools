@@ -219,7 +219,8 @@ count_NAs <- function(dat, by,
   #' @param dat data.frame containing data to process
   #' @param by quosure. column name for the main grouping variable. See "Details"
   #' @param rois,mois vectors of identifiers for regions and measures, in which
-  #' cells have to be counted
+  #' cells have to be counted. Any of these can be left unsepcified, in this
+  #' case, all regions and/or measure form the data will be used.
   #' @param value.col quosure. column name containing the NAs (potentially along
   #' with non-NA values. Typically it will be the column containing the reaction
   #' times or something alike).
@@ -236,6 +237,15 @@ count_NAs <- function(dat, by,
   #'  the combination of region and measure identifying subsets of data, and NAs counts)
   #' @export
   #' @importFrom dplyr %>%
+
+  if (missing(rois)){
+    rois <- unique(dat[[rlang::UQ(region.col)]])
+  }
+
+  if (missing(mois)){
+    rois <- unique(dat[[rlang::UQ(measure.col)]])
+  }
+
 
   check_columns_existence(dat = dat,
                           columns = c(rlang::quo_name(by),
@@ -287,7 +297,8 @@ count_extremes <- function(dat, by,
   #' @param dat data.frame containing data to process
   #' @param by quosure with column name for the main grouping variable. See "Details"
   #' @param rois,mois vectors of identifiers for regions and measures, in which
-  #' cells have to be counted
+  #' cells have to be counted. Any of these can be left unsepcified, in this
+  #' case, all regions and/or measure form the data will be used.
   #' @param value.col quosure with column name containing the NAs (potentially along
   #' with non-NA values. Typically it will be the column containing the reaction
   #' times or something alike).
@@ -312,6 +323,14 @@ count_extremes <- function(dat, by,
   #' "direction" column).
   #' @export
   #' @importFrom dplyr %>%
+
+  if (missing(rois)){
+    rois <- unique(dat[[rlang::UQ(region.col)]])
+  }
+
+  if (missing(mois)){
+    rois <- unique(dat[[rlang::UQ(measure.col)]])
+  }
 
   check_columns_existence(dat = dat,
                           columns = c(rlang::quo_name(by),

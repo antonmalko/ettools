@@ -12,7 +12,8 @@ count_NAs(dat, by, rois, mois, value.col, region.col, measure.col)
 \item{by}{quosure. column name for the main grouping variable. See "Details"}
 
 \item{rois, mois}{vectors of identifiers for regions and measures, in which
-cells have to be counted}
+cells have to be counted. Any of these can be left unsepcified, in this
+case, all regions and/or measure form the data will be used.}
 
 \item{value.col}{quosure. column name containing the NAs (potentially along
 with non-NA values. Typically it will be the column containing the reaction
