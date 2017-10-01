@@ -638,7 +638,7 @@ report_extremes_count <- function(dat, by = subj,
   by <- rlang::enquo(by)
 
   if (missing(rois)){
-    rois <- unique(dat[[rlang::quo_nam(region.col)]])
+    rois <- unique(dat[[rlang::quo_name(region.col)]])
   }
 
   if (missing(mois)){
