@@ -570,7 +570,7 @@ report_NAs_count <- function(dat, by = subj,
   }
 
   if (missing(mois)){
-    rois <- unique(dat[[rlang::quo_name(measure.col)]])
+    mois <- unique(dat[[rlang::quo_name(measure.col)]])
   }
 
   cells.count <- dat %>%
@@ -642,7 +642,7 @@ report_extremes_count <- function(dat, by = subj,
   }
 
   if (missing(mois)){
-    rois <- unique(dat[[rlang::quo_name(measure.col)]])
+    mois <- unique(dat[[rlang::quo_name(measure.col)]])
   }
 
   # count extreme values
