@@ -355,6 +355,7 @@ restore_global_env <- function(source.env){
   #' in the source environments will be overwritten!
   #' @param source.env preserved copy of global environment from which it is to be restored
   #' @return Nothing, function is called for its side effects
+  #' @export
 
   restore_env(source.env = source.env, target.env = globalenv())
 }
