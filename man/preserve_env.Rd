@@ -4,10 +4,10 @@
 \alias{preserve_env}
 \title{Copy objects from one environment to another, creating a copy of an environment}
 \usage{
-preserve_env(env = globalenv())
+preserve_env(env)
 }
 \arguments{
-\item{env}{source environment (by default - global environment)}
+\item{env}{source environment}
 }
 \value{
 copy of the source environment

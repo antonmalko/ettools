@@ -311,23 +311,23 @@ get_quest_acc <- function(dat, subj.col = subj, correct.col = is.correct){
   return(res)
 }
 
-preserve_env <- function(env = globalenv()){
+preserve_env <- function(env){
   #' Copy objects from one environment to another, creating a copy of an environment
   #'
-  #' @param env source environment (by default - global environment)
+  #' @param env source environment
   #' @return copy of the source environment
   #' @export
 
   as.environment(as.list(env, all.names=TRUE))
 }
 
-restore_env <- function(source.env, target.env = globalenv()){
+restore_env <- function(source.env, target.env){
   #' Assign all objects from one environment to another.
   #'
   #' WARNING: objects in the target environments which have the same names as objects
   #' in the source environments will be overwritten!
   #' @param source.env source environment
-  #' @param target.env target environment (by default - global environment)
+  #' @param target.env target environment
   #' @return Nothing, function is called for its side effects
 
   env <- as.list(env, all.names = TRUE)
@@ -338,4 +338,24 @@ restore_env <- function(source.env, target.env = globalenv()){
 
 }
 
+preserve_global_env <- function(){
+  #' Copy all objects in the global environment
+  #'
+  #' Convenience wrapper around \code{\link{preserve_env}}
+  #' @return copy of the global environment
+  #' @export
+  preserve_env(env = globalenv())
+}
+
+restore_global_env <- function(source.env){
+  #' Restore contents of global environment from a saved state
+  #'
+  #' Convenience wrapper around \code{\link{restore_env}}.
+  #' **WARNING**: objects in the target environments which have the same names as objects
+  #' in the source environments will be overwritten!
+  #' @param source.env preserved copy of global environment from which it is to be restored
+  #' @return Nothing, function is called for its side effects
+
+  restore_env(source.env = source.env, target.env = globalenv())
+}
 

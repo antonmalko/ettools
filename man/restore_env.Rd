@@ -4,12 +4,12 @@
 \alias{restore_env}
 \title{Assign all objects from one environment to another.}
 \usage{
-restore_env(source.env, target.env = globalenv())
+restore_env(source.env, target.env)
 }
 \arguments{
 \item{source.env}{source environment}
 
-\item{target.env}{target environment (by default - global environment)}
+\item{target.env}{target environment}
 }
 \value{
 Nothing, function is called for its side effects
