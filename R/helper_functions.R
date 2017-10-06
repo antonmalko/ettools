@@ -360,3 +360,11 @@ restore_global_env <- function(source.env){
   restore_env(source.env = source.env, target.env = globalenv())
 }
 
+get_today <- function(format = "%d%b%y"){
+  #' A function which returns today's date in the requested format. Default format: 02Apr16
+  #' @param string. Format to use on today's date
+  #' @return character with today's date
+  #' @export
+  return(format(Sys.Date(), format = format))
+}
+
