@@ -332,8 +332,8 @@ restore_env <- function(source.env, target.env){
 
   env <- as.list(env, all.names = TRUE)
 
-  for (obj_name in names(env)){
-    assign(x = obj_name, value = env[[obj_name]], envir = target.env)
+  for (obj_name in names(source.env)){
+    assign(x = obj_name, value = source.env[[obj_name]], envir = target.env)
   }
 
 }
