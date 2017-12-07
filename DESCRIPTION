@@ -1,12 +1,15 @@
 Package: ettools
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Utility functions for dealing with eye-tracking data
 Version: 0.0.0.9000
 Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Maintainer: Anton Malko <amalko@umd.edu>
+Description: The package contains utility function for dealing with
+  eye-tracking data (reading studies only). The package is assuming the output
+  produced by the eye-tracking scripts from UMD ("EyePy"). In principle, it
+  should be flexible enough to work with any similarly organized data, but has
+  not been tested with any other scripts explicitly.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
