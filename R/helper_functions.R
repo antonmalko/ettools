@@ -362,7 +362,7 @@ restore_global_env <- function(source.env){
 
 get_today <- function(format = "%d%b%y"){
   #' A function which returns today's date in the requested format.
-  #' @param format. Format to use on today's date (see \code{\link[base]{strptime}}).
+  #' @param format Format to use on today's date (see \code{\link[base]{strptime}}).
   #'       Default format: 02Apr16
   #' @return today's date as character
   #' @export

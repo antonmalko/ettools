@@ -7,7 +7,7 @@
 get_today(format = "\%d\%b\%y")
 }
 \arguments{
-\item{format.}{Format to use on today's date (see \code{\link[base]{strptime}}).
+\item{format}{Format to use on today's date (see \code{\link[base]{strptime}}).
 Default format: 02Apr16}
 }
 \value{
