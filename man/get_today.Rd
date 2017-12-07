@@ -2,16 +2,17 @@
 % Please edit documentation in R/helper_functions.R
 \name{get_today}
 \alias{get_today}
-\title{A function which returns today's date in the requested format. Default format: 02Apr16}
+\title{A function which returns today's date in the requested format.}
 \usage{
 get_today(format = "\%d\%b\%y")
 }
 \arguments{
-\item{string.}{Format to use on today's date}
+\item{format.}{Format to use on today's date (see \code{\link[base]{strptime}}).
+Default format: 02Apr16}
 }
 \value{
-character with today's date
+today's date as character
 }
 \description{
-A function which returns today's date in the requested format. Default format: 02Apr16
+A function which returns today's date in the requested format.
 }
