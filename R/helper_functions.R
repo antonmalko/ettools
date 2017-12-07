@@ -253,7 +253,7 @@ inflate_region_names <- function(reg.names, regions,
 
 get_subj_info <- function(dat){
   #' A function to extract basic info about subjects from an eye-tracking data
-  #' returned by Ilia's scripts.
+  #' returned by EyePy scripts.
   #' @param dat data frame containing eytracking data
   #' @return list with two components: `n.subj` - number of subjects in the data;
   #'  `subj.missing` - a vector with IDs of missing subjects; NA if no subjects

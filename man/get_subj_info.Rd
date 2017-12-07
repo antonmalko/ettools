@@ -3,7 +3,7 @@
 \name{get_subj_info}
 \alias{get_subj_info}
 \title{A function to extract basic info about subjects from an eye-tracking data
-returned by Ilia's scripts.}
+returned by EyePy scripts.}
 \usage{
 get_subj_info(dat)
 }
@@ -19,5 +19,5 @@ vector of numbers from 1 to highest subject ID. E.g. if we have subjects
 }
 \description{
 A function to extract basic info about subjects from an eye-tracking data
-returned by Ilia's scripts.
+returned by EyePy scripts.
 }
