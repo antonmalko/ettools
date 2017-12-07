@@ -83,38 +83,38 @@ The functions fall into one of the following groups:
     the naming functions would need to know what the naming schema is, you can't
     just purge the environment altogether. The suggested strategy is instead this:
     
-          + in the very beginning of each script, capture the current environment to 
-          a backup environment with `preserve_global_env`. Normally this would only 
-          include whatever parameters are specified in the master file;
-          + purge the global environment, removing everything except the backup
-          environment. You can do this by executing something like
-          `rm(list=setdiff(ls(), "backup_env"))`
-          + wrap the rest of the script commands in `tryCatch...finally`, and
-          in the `finally` block restore the saved environment with `restore_global_env`.
-          This would help to ensure that even if there is an error during the script, 
-          the original environment is still restored. 
-          
-          Thus, the whole thing would look like this:
-          
-            library(ettools)
-    
-            backup_env <- preserve_global_env()
-            
-            # clean-up the environment, except the backup_env
-            rm(list=setdiff(ls(), "backup_env))
-            
-            tryCatch({ # even if some script sources with an error...
-              ### your code ###
-            },
-            finally = { # ... we still need to restore the environment we started with
-              # clean-up the environment, except the backup_env. We need to do it because
-              # otherwise the objects from the backup environment would be added to the 
-              global environment, but we may not want to keep anything that the subscript
-              # created
-              rm(list=setdiff(ls(), "backup_env"))
-              # restore global environment
-              restore_global_env(backup_env)
-            })
-            
-            
-            
+        + in the very beginning of each script, capture the current environment to 
+        a backup environment with `preserve_global_env`. Normally this would only 
+        include whatever parameters are specified in the master file;
+        + purge the global environment, removing everything except the backup
+        environment. You can do this by executing something like
+        `rm(list=setdiff(ls(), "backup_env"))`
+        + wrap the rest of the script commands in `tryCatch...finally`, and
+        in the `finally` block restore the saved environment with `restore_global_env`.
+        This would help to ensure that even if there is an error during the script, 
+        the original environment is still restored. 
+
+        Thus, the whole thing would look like this:
+
+          library(ettools)
+
+          backup_env <- preserve_global_env()
+
+          # clean-up the environment, except the backup_env
+          rm(list=setdiff(ls(), "backup_env))
+
+          tryCatch({ # even if some script sources with an error...
+            ### your code ###
+          },
+          finally = { # ... we still need to restore the environment we started with
+            # clean-up the environment, except the backup_env. We need to do it because
+            # otherwise the objects from the backup environment would be added to the 
+            global environment, but we may not want to keep anything that the subscript
+            # created
+            rm(list=setdiff(ls(), "backup_env"))
+            # restore global environment
+            restore_global_env(backup_env)
+          })
+
+
+
