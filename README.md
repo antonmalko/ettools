@@ -1,4 +1,4 @@
-The package contains utility function for dealing with
+The package contains utility functions for dealing with
 eye-tracking data (reading studies only). The package is assuming the output
 produced by the eye-tracking scripts from UMD ("EyePy"). In principle, it
 should be flexible enough to work with any similarly organized data, but has
