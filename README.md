@@ -116,5 +116,7 @@ The functions fall into one of the following groups:
             restore_global_env(backup_env)
           })
 
+## Installation
 
+`devtools::install_github("antonmalko/ettools")`
 
