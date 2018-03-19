@@ -167,8 +167,10 @@ count_cells <- function(dat, by, ..., cast.formula,
   #'@seealso \code{\link{count_NAs}}, \code{\link{count_extremes}}
   #'
   #' @importFrom dplyr %>%
+  #' @importFrom rlang !!
+  #' @importFrom rlang !!!
 
-  grouping_vars <- rlang::quos(...)
+  grouping_vars <- rlang::list2(...)
   id.var <- rlang::quo_name(by)
 
   if (!is.data.frame(dat)){
@@ -198,7 +200,7 @@ count_cells <- function(dat, by, ..., cast.formula,
 
 
   res <-  dat %>%
-    dplyr::group_by(rlang::UQS(grouping_vars), rlang::UQ(by)) %>%
+    dplyr::group_by(!!!grouping_vars, !!by) %>%
     dplyr::summarize(res =n()) %>%
     reshape2::dcast(cast.formula, value.var = "res", fill = 0) %>%
     reshape2::melt(id.vars = id.var, variable.name = "cell", value.name = value.name)
@@ -270,10 +272,9 @@ count_NAs <- function(dat, by,
     filtered.dat <- filtered.dat%>%
       dplyr::filter(rlang::UQ(region.col) %in% rois & rlang::UQ(measure.col) %in% mois)
 
-    res <- count_cells(filtered.dat, by = rlang::UQ(by),
-                       rlang::UQ(region.col),
-                       rlang::UQ(measure.col),
-                       id.var = rlang::quo_name(by),
+    res <- count_cells(filtered.dat, by = by,
+                       region.col,
+                       measure.col,
                        cast.formula = stats::formula(paste(rlang::quo_name(by),"~" ,rlang::quo_name(region.col),
                                                     " + ", rlang::quo_name(measure.col))))
   }
@@ -363,10 +364,9 @@ count_extremes <- function(dat, by,
     colnames(high.extremes)[1] <- rlang::quo_name(by)
   } else {
     high.extremes <- count_cells(high.extremes,
-                                 rlang::UQ(by),
-                                 rlang::UQ(region.col),
-                                 rlang::UQ(measure.col),
-                                 id.var = rlang::quo_name(by),
+                                 by,
+                                 region.col,
+                                 measure.col,
                                  cast.formula = stats::formula(paste(rlang::quo_name(by),"~",
                                                               rlang::quo_name(region.col), " + ",
                                                               rlang::quo_name(measure.col))))
@@ -379,10 +379,9 @@ count_extremes <- function(dat, by,
                                count = numeric(), direction = character())
     colnames(low.extremes)[1] <- rlang::quo_name(by)
   } else {
-    low.extremes <- count_cells(low.extremes, rlang::UQ(by),
-                                rlang::UQ(region.col),
-                                rlang::UQ(measure.col),
-                                id.var = rlang::quo_name(by),
+    low.extremes <- count_cells(low.extremes, by,
+                                region.col,
+                                measure.col,
                                 cast.formula = stats::formula(paste(rlang::quo_name(by),"~",
                                                              rlang::quo_name(region.col), " + ",
                                                              rlang::quo_name(measure.col))))
